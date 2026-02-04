@@ -1,0 +1,28 @@
+import "./style.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import App from "./App";
+import MainPage from "./components/MainPage.tsx";
+import GamePage from "./components/GamePage.tsx";
+import NotFound from "./components/NotFound.tsx";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route errorElement={<NotFound />} element={<App />}>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/game" element={<GamePage />} />
+    </Route>,
+  ),
+);
+
+ReactDOM.createRoot(document.getElementById("app")!).render(
+  <React.StrictMode>
+    <RouterProvider router={router}></RouterProvider>
+  </React.StrictMode>,
+);

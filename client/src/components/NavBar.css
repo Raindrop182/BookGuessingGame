@@ -1,0 +1,18 @@
+.NavBar-container {
+  padding: var(--s) var(--m);
+  background-color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.NavBar-title {
+  color: var(--white);
+  font-size: 20px;
+}
+
+.NavBar-links a {
+  color: var(--white);
+  cursor: pointer;
+  margin-left: 1rem;
+}
