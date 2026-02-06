@@ -13,6 +13,25 @@ const toBeScrapedBooks = [
   { id: 1342, title: "Pride and Prejudice" },
   { id: 2701, title: "Moby Dick" },
   { id: 84, title: "Frankenstein" },
+  { id: 11, title: "Alice's Adventures in Wonderland" },
+  { id: 98, title: "A Tale of Two Cities" },
+  { id: 1661, title: "The Adventures of Sherlock Holmes" },
+  { id: 74, title: "The Adventures of Tom Sawyer" },
+  { id: 2591, title: "The Picture of Dorian Gray" },
+  { id: 158, title: "Emma" },
+  { id: 76, title: "Adventures of Huckleberry Finn" },
+  { id: 5200, title: "Metamorphosis" },
+  { id: 345, title: "Dracula" },
+  { id: 4300, title: "The Call of the Wild" },
+  { id: 64317, title: "The War of the Worlds" },
+  { id: 1400, title: "Great Expectations" },
+  { id: 16328, title: "Treasure Island" },
+  { id: 6130, title: "Gulliver's Travels" },
+  { id: 17405, title: "Peter Pan" },
+  { id: 25525, title: "The Brothers Karamazov" },
+  { id: 996, title: "The Adventures of Pinocchio" },
+  { id: 43, title: "The Strange Case of Dr Jekyll and Mr Hyde" },
+  { id: 844, title: "Heart of Darkness" },
 ];
 
 function cleanGutenbergText(text: string): string {
@@ -22,13 +41,19 @@ function cleanGutenbergText(text: string): string {
 }
 
 function extractQuotes(text: string): string[] {
-  const segmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+  const abbreviations = ["Mr", "Mrs", "Dr", "Ms", "Prof", "Sr", "Jr", "St"];
+  const abbrPattern = abbreviations.join("|");
 
-  const lines = Array.from(segmenter.segment(text))
-    .map((seg) => seg.segment.trim())
-    .filter((line) => line.length > 10);
+  const regex = new RegExp(
+    `(?:[^.!?]|\\b(?:${abbrPattern})\\.)+([.!?]["']?)`,
+    "g",
+  );
 
-  return lines;
+  const matches = text.match(regex) || [];
+
+  return matches
+    .map((s) => s.trim())
+    .filter((s) => s.length > 20 && /[a-zA-Z]/.test(s));
 }
 
 async function scrapeBook(

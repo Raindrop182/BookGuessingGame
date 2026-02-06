@@ -1,0 +1,74 @@
+body {
+  font-family: sans-serif;
+  background-color: #f3f3f3;
+}
+
+.game-card {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.guess-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.guess-input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn,
+.quote-btn {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quote-btn {
+  background-color: #10b981;
+  color: white;
+  margin-top: 15px;
+}
+
+.quote-counter {
+  margin-top: 10px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.lobby-button-group button {
+  background-color: #654f77;
+  color: white;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 10px;
+}

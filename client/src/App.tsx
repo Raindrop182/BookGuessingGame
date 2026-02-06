@@ -4,7 +4,6 @@ import type { Book } from "./types";
 import { Outlet } from "react-router-dom";
 
 const App = () => {
-  const [page, setPage] = useState<"main" | "profile" | "game">("main");
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
@@ -20,8 +19,6 @@ const App = () => {
       <div className="App-container">
         <Outlet context={{ books }} />
       </div>
-      {/* {page == "main" && <MainPage books={books} />}
-      {page == "game" && <GamePage books={books} />} */}
     </div>
   );
 };

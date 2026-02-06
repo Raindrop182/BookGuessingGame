@@ -1,13 +1,23 @@
 import "./NavBar.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-title">Catbook</div>
+      <div className="NavBar-title">Book Guessing Game</div>
       <div className="NavBar-links">
-        <Link to="/">Home</Link>
-        <Link to="/game">Game</Link>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/game"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Game
+        </NavLink>
       </div>
     </nav>
   );
