@@ -1,6 +1,7 @@
 import type { Book } from "../types";
 import { useOutletContext } from "react-router-dom";
 import RandomBookGame from "./RandomBookGame.tsx";
+import "./RandomBookGame.css";
 import { useState } from "react";
 
 type GameMode = "random" | "bookoftheday" | "lobby";
@@ -13,10 +14,12 @@ const GamePage = () => {
     return (
       <div>
         <h1> Game</h1>
-        <button onClick={() => setGamemode("random")}>Random Quote Mode</button>
-        <button onClick={() => setGamemode("bookoftheday")}>
-          Book of the Day
-        </button>
+        <div className="lobby-buttons">
+          <button onClick={() => setGamemode("random")}>Random</button>
+          <button onClick={() => setGamemode("bookoftheday")}>
+            Book of the Day
+          </button>
+        </div>
       </div>
     );
   }

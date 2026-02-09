@@ -3,72 +3,131 @@ body {
   background-color: #f3f3f3;
 }
 
-.game-card {
-  max-width: 500px;
-  margin: 50px auto;
+.random-game-card {
+  max-width: 600px;
   padding: 20px;
-  background-color: #f3f3f3;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  margin: 40px auto; /* centers horizontally */
+  display: flex;
+  flex-direction: column; /* stack children vertically */
+  align-items: center; /* center everything horizontally */
+  gap: 30px;
+}
+
+.random-game-card .submit-button {
+  background-color: var(--color2);
+  color: white;
+  min-width: 100px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.random-game-card .submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+.random-game-card .submit-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
 }
 
 .quote {
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  margin-top: 100px;
   margin-bottom: 20px;
+  height: 100px; /* fixed height */
+  overflow-y: auto; /* scroll if quote is too long */
+  padding: 10px; /* padding so text doesn’t touch edges */
+  align-items: center;
 }
 
 .guess-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px; /* vertical space between input, buttons, etc. */
+  max-width: 300px;
+}
+
+.guess-row {
+  display: flex; /* horizontal layout */
+  gap: 10px; /* space between input & button */
+  width: 100%;
 }
 
 .guess-input {
-  padding: 10px;
   font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: 15px 20px; /* more space inside */
+  flex-shrink: 0; /* prevent shrinking */
+  margin: 0 auto; /* center in available space */
 }
 
-.submit-btn,
-.quote-btn {
-  padding: 10px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.submit-btn {
-  background-color: #4f46e5;
-  color: white;
-}
-
-.submit-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.quote-btn {
-  background-color: #10b981;
-  color: white;
-  margin-top: 15px;
+.guess-input:focus {
+  outline: none;
+  border-color: #ccc; /* optional: keep border color normal */
 }
 
 .quote-counter {
   margin-top: 10px;
-  color: #555;
-  font-size: 0.9rem;
+  color: var(--black);
+  font-size: 1.2rem;
 }
 
-.lobby-button-group button {
-  background-color: #654f77;
+.ingame-options {
+  display: flex; /* horizontal layout */
+  gap: 50px; /* space between input & button */
+}
+
+.ingame-options button {
+  background-color: var(--color1);
   color: white;
+  width: 300px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.lobby-buttons button {
+  background-color: var(--color6);
+  color: rgb(0, 0, 0);
   border-radius: 8px;
   padding: 0.6em 1.2em;
+  min-width: 300px; /* wider */
+  min-height: 175px; /* taller */
   font-weight: 500;
   cursor: pointer;
   margin-right: 10px;
+  border: none; /* remove black border */
+  outline: none; /* remove focus outline */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); /* drop shadow */
+  font-family: "IM Fell Great Primer SC", serif;
+  font-size: 30px;
+  font-weight: 1000;
+}
+
+.lobby-actions button:focus-visible {
+  outline: 3px solid rgba(108, 92, 231, 0.5);
+  outline-offset: 3px;
+}
+
+.lobby-buttons button:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(2px);
+}
+
+.lobby-buttons button:active {
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(4px);
+}
+
+.lobby-buttons {
+  margin-top: 300px;
+  display: flex;
+  justify-content: center; /* center the group */
+  gap: 100px; /* space left ↔ right */
 }

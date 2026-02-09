@@ -14,5 +14,8 @@
     "react-router-dom": "^6.30.3",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@fontsource/im-fell-great-primer-sc": "^5.2.6"
   }
 }

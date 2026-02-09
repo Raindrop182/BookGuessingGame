@@ -72,22 +72,29 @@ const RandomBookGame = ({ books, returnToLobby }: Props) => {
         </div>
       ) : (
         <div className="random-game-card">
-          <button onClick={() => setRandomQuote(book)}>Summon new quote</button>
-          <p>{book.title}</p>
           <p className="quote">{quote}</p>
-
           <form className="guess-form" onSubmit={handleSubmit}>
-            <input
-              value={guess}
-              onChange={(e) => setGuess(e.target.value)}
-              placeholder="Guess the book"
-            />
-            <button type="submit" disabled={!guess.trim()}>
-              Submit
-            </button>
+            <div className="guess-row">
+              <input
+                className="guess-input"
+                value={guess}
+                onChange={(e) => setGuess(e.target.value)}
+                placeholder="Guess the book"
+              />
+              <button className="submit-button" disabled={!guess.trim()}>
+                Submit
+              </button>
+            </div>
             <p className="quote-counter">
-              Quotes generated: {quoteCallCount.current}
+              Number of quotes seen: {quoteCallCount.current}
             </p>
+            <div className="ingame-options">
+              <button onClick={() => setRandomQuote(book)}>
+                Summon new quote
+              </button>
+              <button onClick={() => setGameOver(true)}>Give up</button>
+            </div>
+            <p>{book.title}</p>
           </form>
         </div>
       )}

@@ -11,6 +11,7 @@ import App from "./App";
 import MainPage from "./components/MainPage.tsx";
 import GamePage from "./components/GamePage.tsx";
 import NotFound from "./components/NotFound.tsx";
+import "@fontsource/im-fell-great-primer-sc"; // Loads the regular (400) font
 
 const router = createBrowserRouter(
   createRoutesFromElements(

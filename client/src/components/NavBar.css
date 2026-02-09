@@ -1,6 +1,6 @@
 .NavBar-container {
   padding: var(--s) var(--m);
-  background-color: var(--primary);
+  background-color: var(--color5);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +10,9 @@
   margin: 0;
   font-family: Roboto;
   width: 100%;
+  font-weight: 700;
   box-sizing: border-box;
+  min-height: 72px;
 }
 
 .NavBar-title {
@@ -18,18 +20,29 @@
   font-size: 20px;
 }
 
+.NavBar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .NavBar-links a {
   color: var(--white);
   cursor: pointer;
   margin-left: 1rem;
+  font-weight: 700;
+  padding: 0.4rem 0.4rem;
+  font-size: 20px;
 }
 
 .NavBar-links a:hover {
-  background: rgba(0, 0, 0, 0.05);
-  color: #000;
+  background: var(--color6);
+  color: var(--gray);
+  border-radius: 999px;
 }
 
 .NavBar-links a.active {
-  background: rgba(0, 0, 0, 0.05);
-  color: #000;
+  background: var(--color6);
+  color: var(--gray);
+  border-radius: 999px;
 }
