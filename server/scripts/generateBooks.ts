@@ -43,9 +43,9 @@ function cleanGutenbergText(text: string): string {
 function extractQuotes(text: string): string[] {
   const abbreviations = ["Mr", "Mrs", "Dr", "Ms", "Prof", "Sr", "Jr", "St"];
   const abbrPattern = abbreviations.join("|");
-
+  console.log(abbrPattern);
   const regex = new RegExp(
-    `(?:[^.!?]|\\b(?:${abbrPattern})\\.)+([.!?]["']?)`,
+    `(?:(?!\\b(?:${abbrPattern})\\.)[^.!?]|\\b(?:${abbrPattern})\\.)+[.!?]["']?`,
     "g",
   );
 
