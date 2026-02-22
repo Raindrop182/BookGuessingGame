@@ -1,22 +1,22 @@
-import type { Book, GameMode, GameState } from "../types";
+import type { Book, GameMode, GameState } from "../../types";
 
 type Props = {
-  gameType: GameMode;
+  gameMode: GameMode;
   gameState: GameState;
   setGameMode: React.Dispatch<React.SetStateAction<GameMode>>;
   startNewGame: () => void;
   setGameState: React.Dispatch<React.SetStateAction<GameState>>;
-  num_quotes: number;
+  numQuotes: number;
   book: Book;
 };
 
 const EndGame = ({
   gameState, //"on" "won" or "lost"
   setGameState,
-  gameType, //"random" or "bookoftheday"
+  gameMode, //"random" or "bookoftheday"
   setGameMode,
   startNewGame,
-  num_quotes,
+  numQuotes,
   book,
 }: Props) => {
   return (
@@ -26,7 +26,7 @@ const EndGame = ({
           <p className="end-game-text">
             Correct! The book was <em>{book.title}</em>.
             <br />
-            It took you {num_quotes} {num_quotes == 1 ? "quote" : "quotes"} to
+            It took you {numQuotes} {numQuotes === 1 ? "quote" : "quotes"} to
             guess.
           </p>
         </div>
@@ -35,12 +35,12 @@ const EndGame = ({
           <p className="end-game-text">
             The book was <em>{book.title}</em>.
             <br />
-            You gave up after {num_quotes}{" "}
-            {num_quotes == 1 ? "quote" : "quotes"}.
+            You gave up after {numQuotes} {numQuotes === 1 ? "quote" : "quotes"}
+            .
           </p>
         </div>
       )}
-      {gameType == "random" ? (
+      {gameMode === "random" ? (
         <div className="lobby-buttons">
           <button
             onClick={() => {
@@ -53,6 +53,7 @@ const EndGame = ({
           <button
             onClick={() => {
               setGameMode("lobby");
+              setGameState("on");
             }}
           >
             Return to Lobby
@@ -63,6 +64,7 @@ const EndGame = ({
           <button
             onClick={() => {
               setGameMode("lobby");
+              setGameState("on");
             }}
           >
             Return to Lobby

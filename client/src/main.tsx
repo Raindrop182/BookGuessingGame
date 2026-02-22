@@ -8,8 +8,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App";
-import MainPage from "./components/MainPage.tsx";
-import GamePage from "./components/GamePage.tsx";
+import MainPage from "./components/Home/MainPage.tsx";
+import GamePage from "./components/Game/GamePage.tsx";
 import NotFound from "./components/NotFound.tsx";
 import "@fontsource/im-fell-great-primer-sc"; // Loads the regular (400) font
 import "@fontsource/im-fell-great-primer"; // regular
