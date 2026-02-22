@@ -1,19 +1,24 @@
 import express from "express";
 import cors from "cors";
-import books from "./data/books.json" with { type: "json" };
-import { Book } from "./data/books.ts";
+import { Book } from "./schema.ts";
 import mongoose from "mongoose";
-import { connectDB } from "./utils/db.ts";
+import { connectDB, seedDB } from "./utils/db.ts";
 
 const app = express();
 const PORT = 5000;
 
-connectDB();
-
 app.use(cors()); // allow frontend to fetch
 
-app.get("/api/books", (req, res) => {
-  res.json(books);
+connectDB();
+seedDB();
+
+app.get("/api/books", async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch books" });
+  }
 });
 
 app.listen(PORT, () => {
