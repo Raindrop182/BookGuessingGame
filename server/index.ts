@@ -16,7 +16,9 @@ const PORT = process.env.PORT || 5000;
 app.use(
   cors({
     origin:
-      process.env.NODE_ENV === "production" ? "*" : "http://localhost:5173",
+      process.env.NODE_ENV === "production"
+        ? "https://bookguessinggame.onrender.com"
+        : "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -33,6 +35,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       httpOnly: true,
       secure: (process.env.NODE_ENV ?? "development") === "production",
       maxAge: 1000 * 60 * 60 * 24,
