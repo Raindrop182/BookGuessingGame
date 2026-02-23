@@ -71,6 +71,7 @@ const RandomBookGame = ({
     setRandomBook();
     setQuoteCount(1);
   }
+  if (!books) return <div>Loading books...</div>;
 
   return (
     <div>

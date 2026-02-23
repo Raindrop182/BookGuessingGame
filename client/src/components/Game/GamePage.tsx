@@ -21,6 +21,7 @@ const GamePage = () => {
       setPlayedBOD(status?.date === new Date().toDateString());
     });
   }, [user, refreshBOD]);
+  if (books.length == 0) return <div>Loading books...</div>;
 
   if (gameMode === "lobby") {
     return (
@@ -40,8 +41,8 @@ const GamePage = () => {
               onClick={async () => {
                 if (playedBOD) {
                   console.log(playedBOD);
-                  const lastStatus = await getStatus(); // await the async status
-                  setGameState(lastStatus?.status || "won"); // fallback if null
+                  const lastStatus = await getStatus();
+                  setGameState(lastStatus?.status || "won");
                 } else {
                   setGameState("on");
                 }
