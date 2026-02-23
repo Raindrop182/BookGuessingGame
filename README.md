@@ -2,6 +2,10 @@
 
 A web game where users can guess classic books based on randomly pulled quotes, track their scores, and explore book stats. Built with modern web technologies, this project showcases full-stack development skills, state management, and API integration.
 ## [Play the deployed game](https://bookguessinggame.onrender.com/)
+<p align="center">
+  <img src="./ingame_screenshot.png" alt="Game Page" width="42%"/>
+  <img src="./profile_screenshot.png" alt="Profile Page" width="45%"/>
+</p>
 
 ---
 
