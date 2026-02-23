@@ -13,3 +13,14 @@ export type BookOfTheDayRecord = {
   date: string;
   quote_count: number;
 };
+
+export interface User {
+  googleid: string;
+  name: string;
+  booksGuessed: [
+    {
+      bookId: number;
+      numQuotes: number;
+    },
+  ];
+}

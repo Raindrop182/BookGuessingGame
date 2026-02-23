@@ -6,4 +6,16 @@ const BookSchema = new mongoose.Schema({
   quotes: { type: [String], default: [] },
 });
 
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  googleid: { type: String, required: true },
+  booksGuessed: [
+    {
+      bookId: { type: Number, required: true },
+      numQuotes: { type: Number, required: true },
+    },
+  ],
+});
+
 export const Book = mongoose.model("Book", BookSchema);
+export const User = mongoose.model("User", UserSchema);

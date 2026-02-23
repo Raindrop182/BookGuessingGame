@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar.tsx";
 import type { Book } from "./types";
 import { Outlet } from "react-router-dom";
+import { useUser } from "./components/Utils/UserContext";
 
 const App = () => {
   const [books, setBooks] = useState<Book[]>([]);

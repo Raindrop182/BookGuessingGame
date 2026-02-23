@@ -113,7 +113,7 @@
   color: rgb(0, 0, 0);
   border-radius: 8px;
   padding: 0.6em 1.2em;
-  min-width: 15rem; /* wider */
+  min-width: 20rem; /* wider */
   min-height: 6rem; /* taller */
   font-weight: 500;
   cursor: pointer;

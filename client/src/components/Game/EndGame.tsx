@@ -1,4 +1,5 @@
 import type { Book, GameMode, GameState } from "../../types";
+import { useUser } from "../Utils/UserContext";
 
 type Props = {
   gameMode: GameMode;
@@ -19,6 +20,8 @@ const EndGame = ({
   numQuotes,
   book,
 }: Props) => {
+  const { user, setUser } = useUser();
+
   return (
     <div>
       {gameState === "won" ? (

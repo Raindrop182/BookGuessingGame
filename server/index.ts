@@ -1,16 +1,43 @@
 import express from "express";
-import cors from "cors";
+import session from "express-session";
 import { Book } from "./schema.ts";
 import mongoose from "mongoose";
 import { connectDB, seedDB } from "./utils/db.ts";
+import dotenv from "dotenv";
+import authRoutes from "./utils/auth.ts";
+import cors from "cors";
+import { User } from "./schema.ts";
+
+dotenv.config();
 
 const app = express();
 const PORT = 5000;
 
-app.use(cors()); // allow frontend to fetch
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 connectDB();
 seedDB();
+
+app.use(express.json()); // parse the body as json and put it in req.body
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET!,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: (process.env.NODE_ENV ?? "development") === "production",
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  }),
+);
+
+app.use("/api/auth", authRoutes);
 
 app.get("/api/books", async (req, res) => {
   try {
@@ -18,6 +45,60 @@ app.get("/api/books", async (req, res) => {
     res.json(books);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch books" });
+  }
+});
+
+app.get("/api/user", async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json(null);
+  }
+
+  const user = await User.findById(req.session.userId);
+  res.json(user);
+});
+
+app.put("/api/user", async (req, res) => {
+  console.log("Update body:", req.body);
+
+  if (!req.session.userId)
+    return res.status(401).json({ error: "Not logged in" });
+
+  const updates = req.body;
+
+  try {
+    const user = await User.findById(req.session.userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    if (updates.booksGuessed) {
+      updates.booksGuessed.forEach(
+        (guess: { bookId: number; numQuotes: number }) => {
+          const index = user.booksGuessed.findIndex(
+            (b) => b.bookId === guess.bookId,
+          );
+          if (index >= 0) {
+            user.booksGuessed[index].numQuotes = Math.min(
+              user.booksGuessed[index].numQuotes,
+              guess.numQuotes,
+            );
+          } else {
+            user.booksGuessed.push(guess);
+          }
+        },
+      );
+      delete updates.booksGuessed; // remove from generic updates
+    }
+
+    // Update other fields generically
+    Object.keys(updates).forEach((key) => {
+      if (key === "name") {
+        user[key] = updates[key];
+      }
+    });
+
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update user" });
   }
 });
 
