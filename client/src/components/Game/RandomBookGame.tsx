@@ -103,8 +103,6 @@ const RandomBookGame = ({
             <p className="quote-counter">Number of quotes seen: {quoteCount}</p>
             <InGameOptions />
           </GameContext.Provider>
-
-          <p>{book.title}</p>
         </div>
       )}
     </div>

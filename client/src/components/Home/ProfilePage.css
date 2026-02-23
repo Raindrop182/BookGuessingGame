@@ -73,11 +73,7 @@
 .book-card {
   display: flex;
   gap: 1.5rem; /* space between title and stats */
-  align-items: center; /* This centers the stats box vertically against the title *
-}
-
-.book-card:hover {
-  transform: translateY(-5px); /* subtle lift on hover */
+  align-items: center; /* This centers the stats box vertically against the title */
 }
 
 /* Stats box — always flex so it stays in row */
@@ -100,6 +96,10 @@
 
 .booktitle:hover + .book-stats {
   opacity: 1;
+}
+
+.booktitle:hover {
+  transform: translateY(-5px); /* subtle lift on hover */
 }
 
 .book-stats p {

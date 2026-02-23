@@ -137,6 +137,46 @@
   transform: translateY(2px);
 }
 
+.lobby-buttons {
+  display: flex;
+  flex-direction: row; /* stack items vertically */
+  justify-content: center; /* vertical centering */
+  align-items: center; /* horizontal centering */
+  text-align: center; /* multiline text centered */
+}
+
+.lobby-button-wrapper {
+  position: relative; /* for absolute positioning of child */
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+  justify-content: center; /* vertical centering */
+  align-items: center; /* horizontal centering */
+  text-align: center; /* multiline text centered */
+  width: 20rem;
+}
+
+.lobby-buttons-explanations {
+  position: absolute;
+  top: 100%; /* directly below button */
+  left: 50%; /* start at 50% of parent */
+  transform: translateX(-50%); /* center horizontally */
+
+  background: #b6f2d160;
+  padding: 2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 3rem;
+  width: 100%;
+  font-family: "times new roman";
+
+  opacity: 0; /* hide by default */
+  font-size: 1.5rem;
+}
+
+.lobby-button-wrapper:hover .lobby-buttons-explanations {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .lobby-buttons button:active {
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
   transform: translateY(4px);
@@ -146,7 +186,7 @@
   margin-top: 15rem;
   display: flex;
   justify-content: center; /* center the group */
-  gap: 5rem; /* space left ↔ right */
+  gap: 5%; /* space left ↔ right */
 }
 
 .end-game-text {

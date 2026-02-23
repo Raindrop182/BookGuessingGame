@@ -27,21 +27,35 @@ const GamePage = () => {
       <div>
         <h1> Game</h1>
         <div className="lobby-buttons">
-          <button onClick={() => setGameMode("random")}>Random</button>
-          <button
-            onClick={async () => {
-              if (playedBOD) {
-                console.log(playedBOD);
-                const lastStatus = await getStatus(); // await the async status
-                setGameState(lastStatus?.status || "won"); // fallback if null
-              } else {
-                setGameState("on");
-              }
-              setGameMode("bookoftheday");
-            }}
-          >
-            Book of the Day
-          </button>
+          <div className="lobby-button-wrapper">
+            <button onClick={() => setGameMode("random")}>Random</button>
+            <div className="lobby-buttons-explanations">
+              Get quotes from a random book and try to guess which one it’s
+              from. Keep getting quotes until you guess correctly or give up.
+              Each game is a new book.
+            </div>
+          </div>
+          <div className="lobby-button-wrapper">
+            <button
+              onClick={async () => {
+                if (playedBOD) {
+                  console.log(playedBOD);
+                  const lastStatus = await getStatus(); // await the async status
+                  setGameState(lastStatus?.status || "won"); // fallback if null
+                } else {
+                  setGameState("on");
+                }
+                setGameMode("bookoftheday");
+              }}
+            >
+              Book of the Day
+            </button>
+            <div className="lobby-buttons-explanations">
+              Guess quotes from the daily featured book. You can get as many
+              quotes as you need until you guess it or give up. Each player can
+              play this once per day.
+            </div>
+          </div>
         </div>
       </div>
     );
