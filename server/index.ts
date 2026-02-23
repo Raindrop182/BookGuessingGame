@@ -8,6 +8,7 @@ import authRoutes from "./utils/auth.ts";
 import cors from "cors";
 import { User } from "./schema.ts";
 import path from "path";
+import MongoStore from "connect-mongo";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ const __dirname = path.resolve();
 
 connectDB();
 seedDB();
+console.log("NODE_ENV:", process.env.NODE_ENV);
 
 app.use(express.json()); // parse the body as json and put it in req.body
 app.use(
@@ -34,10 +36,13 @@ app.use(
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
     cookie: {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       httpOnly: true,
-      secure: (process.env.NODE_ENV ?? "development") === "production",
+      secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 24,
     },
   }),
