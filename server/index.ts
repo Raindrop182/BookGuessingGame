@@ -21,8 +21,7 @@ app.use(
   }),
 );
 
-// Serve static front-end files
-const __dirname = path.resolve(); // necessary for ES modules
+const __dirname = path.resolve();
 
 connectDB();
 seedDB();
@@ -118,11 +117,10 @@ app.put("/api/user", async (req, res) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, "client/dist"))); // Vite output
+app.use(express.static(path.join(__dirname, "client/dist")));
 
-// Serve React SPA for all non-API routes
 app.use((req, res, next) => {
-  if (req.path.startsWith("/api")) return next(); // skip API routes
+  if (req.path.startsWith("/api")) return next();
   res.sendFile(path.join(__dirname, "client/dist/index.html"));
 });
 

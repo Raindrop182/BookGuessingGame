@@ -14,14 +14,14 @@
 }
 
 .profile-right {
-  flex: 4; /* make right side wider */
+  flex: 4;
   padding: 1rem;
   border-radius: 12px;
 
-  display: flex; /* make it a flex container */
-  flex-direction: column; /* stack children vertically */
-  align-items: flex-start; /* align everything to the left */
-  gap: 1rem; /* optional spacing between elements */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .profile-info {
@@ -56,42 +56,41 @@
   background: var(--color2);
   width: 25rem;
   height: 8rem;
-  display: flex; /* enables flex layout */
-  justify-content: center; /* horizontal centering */
-  align-items: center; /* vertical centering */
-  text-align: center; /* optional: for multi-line text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   font-family: "Times New Roman";
 
-  font-weight: 700; /* makes text bold (400 is normal, 700 is bold) */
-  font-style: italic; /* makes text italic */
-  font-size: 1.5rem; /* larger font size */
+  font-weight: 700;
+  font-style: italic;
+  font-size: 1.5rem;
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .book-card {
   display: flex;
-  gap: 1.5rem; /* space between title and stats */
-  align-items: center; /* This centers the stats box vertically against the title */
+  gap: 1.5rem;
+  align-items: center;
 }
 
-/* Stats box — always flex so it stays in row */
 .book-stats {
   display: flex;
-  flex-direction: column; /* stack items vertically */
-  justify-content: center; /* vertical centering */
-  align-items: center; /* horizontal centering */
-  text-align: center; /* multiline text centered */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 0.2rem;
 
   background: #b6f2d160;
   width: 15rem;
-  height: 4rem; /* let content dictate height */
+  height: 4rem;
   padding: 0.5rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 
-  opacity: 0; /* hide by default */
+  opacity: 0;
 }
 
 .booktitle:hover + .book-stats {
@@ -99,15 +98,15 @@
 }
 
 .booktitle:hover {
-  transform: translateY(-5px); /* subtle lift on hover */
+  transform: translateY(-5px);
 }
 
 .book-stats p {
-  margin: 0; /* remove default paragraph margin */
-  line-height: 1.2rem; /* tighter vertical spacing */
+  margin: 0;
+  line-height: 1.2rem;
   font-size: 0.95rem;
 }
 
 .bold-label {
-  font-weight: 700; /* bold */
+  font-weight: 700;
 }
