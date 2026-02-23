@@ -16,8 +16,6 @@ const toBeScrapedBooks = [
   { id: 11, title: "Alice's Adventures in Wonderland" },
   { id: 98, title: "A Tale of Two Cities" },
   { id: 1661, title: "The Adventures of Sherlock Holmes" },
-  { id: 7193, title: "The Adventures of Tom Sawyer" },
-  { id: 26740, title: "The Picture of Dorian Gray" },
   { id: 158, title: "Emma" },
   { id: 76, title: "Adventures of Huckleberry Finn" },
   { id: 5200, title: "Metamorphosis" },
