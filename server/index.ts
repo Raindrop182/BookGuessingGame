@@ -7,18 +7,22 @@ import dotenv from "dotenv";
 import authRoutes from "./utils/auth.ts";
 import cors from "cors";
 import { User } from "./schema.ts";
+import path from "path";
 
 dotenv.config();
 
 const app = express();
-const PORT = 5000;
-
+const PORT = process.env.PORT || 5000;
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:
+      process.env.NODE_ENV === "production" ? "*" : "http://localhost:5173",
     credentials: true,
   }),
 );
+
+// Serve static front-end files
+const __dirname = path.resolve(); // necessary for ES modules
 
 connectDB();
 seedDB();
@@ -112,6 +116,14 @@ app.put("/api/user", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to update user" });
   }
+});
+
+app.use(express.static(path.join(__dirname, "client/dist"))); // Vite output
+
+// Serve React SPA for all non-API routes
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) return next(); // skip API routes
+  res.sendFile(path.join(__dirname, "client/dist/index.html"));
 });
 
 app.listen(PORT, () => {

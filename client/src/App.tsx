@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar.tsx";
 import type { Book } from "./types";
 import { Outlet } from "react-router-dom";
+import { API_URL } from "./components/Utils/api";
 
 const App = () => {
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/books")
+    fetch(`${API_URL}/api/books`)
       .then((res) => res.json())
       .then((data) => setBooks(data))
       .catch((err) => console.error("Failed to fetch books: ", err));

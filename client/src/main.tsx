@@ -13,8 +13,6 @@ import GamePage from "./components/Game/GamePage.tsx";
 import ProfilePage from "./components/Home/ProfilePage.tsx";
 import NotFound from "./components/NotFound.tsx";
 import "@fontsource/im-fell-great-primer-sc"; // Loads the regular (400) font
-import "@fontsource/im-fell-great-primer"; // regular
-import "@fontsource/im-fell-great-primer/400-italic.css"; // italic
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserProvider } from "./components/Utils/UserContext.tsx";
 

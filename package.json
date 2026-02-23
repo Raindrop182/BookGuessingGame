@@ -1,0 +1,12 @@
+{
+  "name": "bookguessinggame",
+  "private": true,
+  "scripts": {
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "build-client": "cd client && npm run build",
+    "start": "npx ts-node server/index.ts",
+    "postinstall": "npm run install-client && npm run install-server && npm run build-client && cd server && npm run build",
+    "build": "npm run build-client"
+  }
+}

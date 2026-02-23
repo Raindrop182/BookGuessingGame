@@ -1,5 +1,5 @@
 import seedrandom from "seedrandom";
-import type { Book, GameState, BookOfTheDayRecord } from "../../types";
+import type { Book, GameState } from "../../types";
 import { useUser } from "./UserContext";
 import { useUpdateUser } from "../Utils/UpdateUser";
 

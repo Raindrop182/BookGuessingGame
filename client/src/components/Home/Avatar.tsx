@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useUpdateUser } from "../Utils/UpdateUser";
 type AvatarProps = {
   color: string;

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { API_URL } from "./api";
 
 type User = {
   _id: string;
@@ -34,7 +35,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/user", {
+    fetch(`${API_URL}/api/user`, {
       credentials: "include",
     })
       .then((res) => res.json())

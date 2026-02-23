@@ -2,6 +2,8 @@ import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { useUser } from "./Utils/UserContext";
+import { API_URL } from "./Utils/api";
+
 const NavBar = () => {
   const { user, setUser } = useUser();
   const handleLogin = async (res: any) => {
@@ -9,7 +11,7 @@ const NavBar = () => {
       return;
     }
     console.log("aaaaa");
-    const r = await fetch("http://localhost:5000/api/auth/login", {
+    const r = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ credential: res.credential }),
@@ -22,7 +24,7 @@ const NavBar = () => {
   };
 
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/auth/logout", {
+    await fetch(`${API_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
