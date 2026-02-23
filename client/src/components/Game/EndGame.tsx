@@ -1,5 +1,6 @@
 import type { Book, GameMode, GameState } from "../../types";
-import { useUser } from "../Utils/UserContext";
+import { useBookOfTheDay } from "../Utils/BookOfTheDay";
+import { useState, useEffect } from "react";
 
 type Props = {
   gameMode: GameMode;
@@ -7,7 +8,7 @@ type Props = {
   setGameMode: React.Dispatch<React.SetStateAction<GameMode>>;
   startNewGame: () => void;
   setGameState: React.Dispatch<React.SetStateAction<GameState>>;
-  numQuotes: number;
+  numQuotesFromGame: number;
   book: Book;
 };
 
@@ -17,10 +18,21 @@ const EndGame = ({
   gameMode, //"random" or "bookoftheday"
   setGameMode,
   startNewGame,
-  numQuotes,
+  numQuotesFromGame,
   book,
 }: Props) => {
-  const { user, setUser } = useUser();
+  const { getStatus } = useBookOfTheDay();
+  const [quoteCount, setQuoteCount] = useState<number>(numQuotesFromGame);
+
+  useEffect(() => {
+    if (gameMode === "bookoftheday") {
+      getStatus().then((status) => {
+        if (status) setQuoteCount(status.numQuotes);
+      });
+    } else {
+      setQuoteCount(numQuotesFromGame);
+    }
+  }, [gameMode, numQuotesFromGame]);
 
   return (
     <div>
@@ -29,7 +41,7 @@ const EndGame = ({
           <p className="end-game-text">
             Correct! The book was <em>{book.title}</em>.
             <br />
-            It took you {numQuotes} {numQuotes === 1 ? "quote" : "quotes"} to
+            It took you {quoteCount} {quoteCount === 1 ? "quote" : "quotes"} to
             guess.
           </p>
         </div>
@@ -38,8 +50,8 @@ const EndGame = ({
           <p className="end-game-text">
             The book was <em>{book.title}</em>.
             <br />
-            You gave up after {numQuotes} {numQuotes === 1 ? "quote" : "quotes"}
-            .
+            You gave up after {quoteCount}{" "}
+            {quoteCount === 1 ? "quote" : "quotes"}.
           </p>
         </div>
       )}

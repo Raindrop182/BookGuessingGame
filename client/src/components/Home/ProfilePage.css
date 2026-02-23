@@ -1,0 +1,113 @@
+.profile-page {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.profile-left {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-right {
+  flex: 4; /* make right side wider */
+  padding: 1rem;
+  border-radius: 12px;
+
+  display: flex; /* make it a flex container */
+  flex-direction: column; /* stack children vertically */
+  align-items: flex-start; /* align everything to the left */
+  gap: 1rem; /* optional spacing between elements */
+}
+
+.profile-info {
+  margin-top: 0;
+  font-family: "Times New Roman";
+}
+
+.username {
+  font-size: 2.5rem;
+}
+
+.avatar-circle {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.avatar-circle:hover {
+  transform: scale(1.05);
+}
+
+/* hide the actual picker */
+.hidden-color-input {
+  display: none;
+}
+
+.booktitle {
+  background: var(--color2);
+  width: 25rem;
+  height: 8rem;
+  display: flex; /* enables flex layout */
+  justify-content: center; /* horizontal centering */
+  align-items: center; /* vertical centering */
+  text-align: center; /* optional: for multi-line text */
+
+  font-family: "Times New Roman";
+
+  font-weight: 700; /* makes text bold (400 is normal, 700 is bold) */
+  font-style: italic; /* makes text italic */
+  font-size: 1.5rem; /* larger font size */
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.book-card {
+  display: flex;
+  gap: 1.5rem; /* space between title and stats */
+  align-items: center; /* This centers the stats box vertically against the title *
+}
+
+.book-card:hover {
+  transform: translateY(-5px); /* subtle lift on hover */
+}
+
+/* Stats box — always flex so it stays in row */
+.book-stats {
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+  justify-content: center; /* vertical centering */
+  align-items: center; /* horizontal centering */
+  text-align: center; /* multiline text centered */
+  gap: 0.2rem;
+
+  background: #b6f2d160;
+  width: 15rem;
+  height: 4rem; /* let content dictate height */
+  padding: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+  opacity: 0; /* hide by default */
+}
+
+.booktitle:hover + .book-stats {
+  opacity: 1;
+}
+
+.book-stats p {
+  margin: 0; /* remove default paragraph margin */
+  line-height: 1.2rem; /* tighter vertical spacing */
+  font-size: 0.95rem;
+}
+
+.bold-label {
+  font-weight: 700; /* bold */
+}

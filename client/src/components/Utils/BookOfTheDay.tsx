@@ -1,46 +1,9 @@
 import seedrandom from "seedrandom";
 import type { Book, GameState, BookOfTheDayRecord } from "../../types";
+import { useUser } from "./UserContext";
+import { useUpdateUser } from "../Utils/UpdateUser";
 
 export const BOD_LAST_PLAYED_KEY = "bookOfTheDayLastPlayed";
-
-export function hasPlayedBookOfTheDay(): boolean {
-  const lastPlayedStr = localStorage.getItem(BOD_LAST_PLAYED_KEY);
-  if (!lastPlayedStr) return false;
-  try {
-    const lastPlayed: BookOfTheDayRecord = JSON.parse(lastPlayedStr);
-    return lastPlayed.date === new Date().toDateString();
-  } catch {
-    return false;
-  }
-}
-
-export function setLastPlayedBookOfTheDay(
-  status: GameState,
-  quote_count: number,
-): void {
-  localStorage.setItem(
-    BOD_LAST_PLAYED_KEY,
-    JSON.stringify({ status, date: new Date().toDateString(), quote_count }),
-  );
-}
-
-export function getLastPlayedStatus(): GameState {
-  const lastPlayedStr = localStorage.getItem(BOD_LAST_PLAYED_KEY);
-  if (lastPlayedStr) {
-    const lastPlayed: BookOfTheDayRecord = JSON.parse(lastPlayedStr);
-    return lastPlayed.status;
-  }
-  return "lost";
-}
-
-export function getLastPlayedQuoteCount(): number {
-  const lastPlayedStr = localStorage.getItem(BOD_LAST_PLAYED_KEY);
-  if (lastPlayedStr) {
-    const lastPlayed: BookOfTheDayRecord = JSON.parse(lastPlayedStr);
-    return lastPlayed.quote_count;
-  }
-  return 0;
-}
 
 export function getBookOfTheDay(books: Book[]): Book {
   const dateSeed = new Date().toDateString();
@@ -49,4 +12,48 @@ export function getBookOfTheDay(books: Book[]): Book {
 
   const index = Math.floor(rng() * books.length);
   return books[index];
+}
+
+function getLocalBOD() {
+  const str = localStorage.getItem(BOD_LAST_PLAYED_KEY);
+  if (!str) return null;
+  try {
+    console.log(JSON.parse(str));
+    return JSON.parse(str);
+  } catch {
+    return null;
+  }
+}
+
+function setLocalBOD(status: GameState, numQuotes: number) {
+  localStorage.setItem(
+    BOD_LAST_PLAYED_KEY,
+    JSON.stringify({ status, numQuotes, date: new Date().toDateString() }),
+  );
+}
+
+export function useBookOfTheDay() {
+  const { user } = useUser();
+  const { addBODStat } = useUpdateUser();
+
+  const isLoggedIn = !!user;
+
+  async function getStatus() {
+    if (isLoggedIn) {
+      return user.bookofthedayStats;
+    } else {
+      console.log("not logged in status retrieval");
+      return getLocalBOD();
+    }
+  }
+
+  async function setStatus(status: GameState, numQuotes: number) {
+    if (isLoggedIn) return addBODStat(status, numQuotes);
+    else {
+      console.log("not logged in status set");
+      return setLocalBOD(status, numQuotes);
+    }
+  }
+
+  return { getStatus, setStatus };
 }

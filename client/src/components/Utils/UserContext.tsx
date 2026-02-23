@@ -4,10 +4,17 @@ type User = {
   _id: string;
   name: string;
   googleid: string;
+  avatarColor: string;
   booksGuessed: {
     bookId: number;
-    numQuotes: number;
+    bestNumQuotes: number;
+    worstNumQuotes: number;
   }[];
+  bookofthedayStats: {
+    date: string;
+    numQuotes: number;
+    status: string;
+  };
 };
 
 type UserContextType = {

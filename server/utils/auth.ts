@@ -7,6 +7,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post("/login", async (req, res) => {
   try {
+    console.log("ffff");
     const { credential } = req.body;
 
     const ticket = await client.verifyIdToken({
@@ -19,14 +20,23 @@ router.post("/login", async (req, res) => {
 
     // Find or create user
     let user = await User.findOne({ googleid: payload.sub });
+    console.log("eeee");
     if (!user) {
-      user = await User.create({ name: payload.name, googleid: payload.sub });
+      console.log("Trying to create new user");
+      user = await User.create({
+        name: payload.name,
+        googleid: payload.sub,
+        avatarColor: "#FFFFFF",
+        booksGuessed: [],
+        bookofthedayStats: { date: "", numQuotes: 0, status: "lost" },
+      });
     }
 
     // Save user id in session
     req.session.userId = user._id.toString();
     res.json({ user });
   } catch (error) {
+    console.log("gggg");
     console.error("!!! DETAILED LOGIN ERROR !!!");
     console.error(error);
     res.status(500).json({ error: "Server error" });

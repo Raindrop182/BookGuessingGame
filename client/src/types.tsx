@@ -17,10 +17,17 @@ export type BookOfTheDayRecord = {
 export interface User {
   googleid: string;
   name: string;
+  avatarColor: string;
   booksGuessed: [
     {
       bookId: number;
-      numQuotes: number;
+      bestNumQuotes: number;
+      worstNumQuotes: number;
     },
   ];
+  bookofthedayStats: {
+    date: string;
+    numQuotes: number;
+    status: string;
+  };
 }

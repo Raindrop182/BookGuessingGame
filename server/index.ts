@@ -76,12 +76,20 @@ app.put("/api/user", async (req, res) => {
             (b) => b.bookId === guess.bookId,
           );
           if (index >= 0) {
-            user.booksGuessed[index].numQuotes = Math.min(
-              user.booksGuessed[index].numQuotes,
+            user.booksGuessed[index].bestNumQuotes = Math.min(
+              user.booksGuessed[index].bestNumQuotes,
+              guess.numQuotes,
+            );
+            user.booksGuessed[index].worstNumQuotes = Math.max(
+              user.booksGuessed[index].worstNumQuotes,
               guess.numQuotes,
             );
           } else {
-            user.booksGuessed.push(guess);
+            user.booksGuessed.push({
+              bookId: guess.bookId,
+              bestNumQuotes: guess.numQuotes,
+              worstNumQuotes: guess.numQuotes,
+            });
           }
         },
       );
@@ -90,7 +98,11 @@ app.put("/api/user", async (req, res) => {
 
     // Update other fields generically
     Object.keys(updates).forEach((key) => {
-      if (key === "name") {
+      if (
+        key === "name" ||
+        key === "bookofthedayStats" ||
+        key === "avatarColor"
+      ) {
         user[key] = updates[key];
       }
     });

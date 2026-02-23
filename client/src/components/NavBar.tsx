@@ -8,12 +8,14 @@ const NavBar = () => {
     if (!res.credential) {
       return;
     }
+    console.log("aaaaa");
     const r = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ credential: res.credential }),
       credentials: "include",
     });
+    console.log("bbbbb");
     const data = await r.json();
     console.log("Logged in user:", data.user);
     setUser(data.user);
@@ -46,10 +48,18 @@ const NavBar = () => {
         >
           Game
         </NavLink>
+        {user && (
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Profile
+          </NavLink>
+        )}
       </div>
       <div className="NavBar-login">
         {user ? (
-          <button onClick={handleLogout}>Sign out</button>
+          <button onClick={handleLogout}>Logout</button>
         ) : (
           <GoogleLogin onSuccess={handleLogin} onError={handleError} />
         )}

@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./RandomBookGame.css";
-import { setLastPlayedBookOfTheDay } from "../Utils/BookOfTheDay";
+import { useBookOfTheDay } from "../Utils/BookOfTheDay";
 import { useGameContext } from "./RandomBookGame"; // or wherever your context lives
-import { useUser } from "../Utils/UserContext";
 import { useUpdateUser } from "../Utils/UpdateUser";
 
 function normalize(s: string) {
@@ -14,12 +13,20 @@ function normalize(s: string) {
 }
 
 const GuessInput = () => {
-  const { setGameState, gameMode, quoteCount, book, setRandomQuote, inputRef } =
-    useGameContext();
+  const {
+    setGameState,
+    gameMode,
+    quoteCount,
+    book,
+    setRandomQuote,
+    inputRef,
+    setRefreshBOD,
+  } = useGameContext();
   const [feedback, setFeedback] = useState("");
   const [guess, setGuess] = useState<string>("");
   const feedbackTimeout = useRef<number | null>(null);
   const { addBookGuess } = useUpdateUser();
+  const { setStatus } = useBookOfTheDay();
 
   useEffect(() => {
     return () => {
@@ -42,7 +49,7 @@ const GuessInput = () => {
       setGameState("won");
       setFeedback("");
       if (gameMode == "bookoftheday") {
-        setLastPlayedBookOfTheDay("won", quoteCount);
+        setStatus("won", quoteCount).then(() => setRefreshBOD((r) => r + 1));
       } else if (gameMode == "random") {
         addBookGuess(book.id, quoteCount);
       }

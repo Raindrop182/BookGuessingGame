@@ -11,6 +11,7 @@ type Props = {
   setGameState: React.Dispatch<React.SetStateAction<GameState>>;
   gameState: GameState;
   gameMode: GameMode;
+  setRefreshBOD: React.Dispatch<React.SetStateAction<number>>;
 };
 
 type GameContextType = {
@@ -21,6 +22,7 @@ type GameContextType = {
   book: Book;
   setRandomQuote: (book: Book) => void;
   inputRef: React.RefObject<HTMLInputElement | null>;
+  setRefreshBOD: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const GameContext = createContext<GameContextType | null>(null);
@@ -47,6 +49,7 @@ const RandomBookGame = ({
   gameState,
   setGameState,
   gameMode,
+  setRefreshBOD,
 }: Props) => {
   const [book, setBook] = useState<Book>(getRandomBook(books));
   const [quote, setQuote] = useState<string>(getRandomQuote(book));
@@ -77,7 +80,7 @@ const RandomBookGame = ({
           setGameMode={setGameMode}
           setGameState={setGameState}
           gameMode={gameMode}
-          numQuotes={quoteCount}
+          numQuotesFromGame={quoteCount}
           gameState={gameState}
           book={book}
         />
@@ -93,6 +96,7 @@ const RandomBookGame = ({
               book,
               setRandomQuote,
               inputRef,
+              setRefreshBOD,
             }}
           >
             <GuessInput />
