@@ -20,7 +20,7 @@ A web game where users can guess classic books based on randomly pulled quotes, 
 - **Interactive Book Guessing:** Users can attempt to guess books based on random excerpts.  
 - **User Accounts:** Register and log in to track guesses, high scores, and personalized stats.  
 - **Persistent Storage:** MongoDB backend for user data and game history.  
-- **Smooth UX:** Typewriter effect for book titles, hover animations, and interactive feedback.
+- **Smooth UX:** Hover animations and interactive feedback.
 
 ---
 
