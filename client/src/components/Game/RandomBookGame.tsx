@@ -1,9 +1,10 @@
 import type { Book, GameMode, GameState } from "../../types";
-import { useState, useRef, createContext, useContext } from "react";
+import { useState, useRef, createContext, useContext, useEffect } from "react";
 import "./RandomBookGame.css";
 import EndGame from "./EndGame";
 import GuessInput from "./GuessInput";
 import InGameOptions from "./InGameOptions";
+import { useBookOfTheDay, getBookOfTheDay } from "../Utils/BookOfTheDay";
 
 type Props = {
   books: Book[];
@@ -23,6 +24,11 @@ type GameContextType = {
   setRandomQuote: (book: Book) => void;
   inputRef: React.RefObject<HTMLInputElement | null>;
   setRefreshBOD: React.Dispatch<React.SetStateAction<number>>;
+};
+
+type Status = {
+  numQuotes: number;
+  date: number;
 };
 
 export const GameContext = createContext<GameContextType | null>(null);
@@ -55,6 +61,14 @@ const RandomBookGame = ({
   const [quote, setQuote] = useState<string>(getRandomQuote(book));
   const inputRef = useRef<HTMLInputElement>(null);
   const [quoteCount, setQuoteCount] = useState(1);
+  const { getStatus } = useBookOfTheDay();
+  const [lastStatus, setLastStatus] = useState<Status | null>(null);
+
+  useEffect(() => {
+    if (gameState === "won" || gameState === "lost") {
+      getStatus().then(setLastStatus);
+    }
+  }, [gameState]);
 
   function setRandomQuote(book: Book) {
     setQuoteCount(quoteCount + 1);
@@ -71,7 +85,6 @@ const RandomBookGame = ({
     setRandomBook();
     setQuoteCount(1);
   }
-  if (!books) return <div>Loading books...</div>;
 
   return (
     <div>
@@ -81,7 +94,13 @@ const RandomBookGame = ({
           setGameMode={setGameMode}
           setGameState={setGameState}
           gameMode={gameMode}
-          numQuotesFromGame={quoteCount}
+          numQuotesFromGame={
+            gameMode === "bookoftheday" &&
+            lastStatus &&
+            lastStatus.date === new Date().getTime()
+              ? lastStatus.numQuotes
+              : quoteCount
+          }
           gameState={gameState}
           book={book}
         />
