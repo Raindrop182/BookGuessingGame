@@ -8,6 +8,10 @@ A web game where users can guess classic books based on randomly pulled quotes, 
   <img src="./ingame_screenshot.png" alt="Game Page" width="42%"/>
   <img src="./profile_screenshot.png" alt="Profile Page" width="45%"/>
 </p>
+<p align="center">
+  <img src="./mobile_ingame_screenshot.png" alt="Mobile Game Page" width="42%"/>
+  <img src="./mobile_profile_screenshot.png" alt="Mobile Profile Page" width="45%"/>
+</p>
 
 ---
 
@@ -27,12 +31,12 @@ A web game where users can guess classic books based on randomly pulled quotes, 
 - **User Accounts:** Register and log in to track guesses, high scores, and personalized stats.
 - **Persistent Storage:** MongoDB backend for user data and game history.
 - **Smooth UX:** Hover animations and interactive feedback.
+- **Responsive UI:** Updated interface works seamlessly on both desktop and mobile devices.
 
 ---
 
 ## Planned Enhancements
 
-- **Responsive Design:** Fully responsive layout for desktop and mobile devices.
 - **Add user customization:** Allow users to customize font size, theme colors, accessibility settings, etc.
 - **Increase game size:** Add more books to database and improve excerpt retrieval.
 - **Add social elements:** Integrate a leaderboard system.
