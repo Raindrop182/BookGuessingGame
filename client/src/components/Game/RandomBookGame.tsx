@@ -4,7 +4,7 @@ import "./RandomBookGame.css";
 import EndGame from "./EndGame";
 import GuessInput from "./GuessInput";
 import InGameOptions from "./InGameOptions";
-import { useBookOfTheDay, getBookOfTheDay } from "../Utils/BookOfTheDay";
+import { useBookOfTheDay } from "../Utils/BookOfTheDay";
 
 type Props = {
   books: Book[];

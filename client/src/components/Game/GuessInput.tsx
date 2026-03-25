@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./RandomBookGame.css";
 import { useBookOfTheDay } from "../Utils/BookOfTheDay";
-import { useGameContext } from "./RandomBookGame"; // or wherever your context lives
+import { useGameContext } from "./RandomBookGame";
 import { useUpdateUser } from "../Utils/UpdateUser";
 
 function normalize(s: string) {
@@ -81,8 +81,8 @@ const GuessInput = () => {
         <button className="submit-button" disabled={!guess.trim()}>
           Submit
         </button>
-        {feedback && <span className="feedback-inline">{feedback}</span>}
       </div>
+      {feedback && <span className="feedback-inline">{feedback}</span>}
     </form>
   );
 };

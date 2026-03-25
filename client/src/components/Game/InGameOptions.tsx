@@ -1,6 +1,6 @@
 import "./RandomBookGame.css";
 import { useBookOfTheDay } from "../Utils/BookOfTheDay";
-import { useGameContext } from "./RandomBookGame"; // or wherever your context lives
+import { useGameContext } from "./RandomBookGame";
 
 const InGameOptions = () => {
   const {
@@ -15,8 +15,8 @@ const InGameOptions = () => {
   const { setStatus } = useBookOfTheDay();
 
   function handleButtonClick(callback: () => void) {
-    callback(); // run whatever the button does
-    inputRef.current?.focus(); // keep input focused
+    callback();
+    inputRef.current?.focus();
   }
 
   return (
