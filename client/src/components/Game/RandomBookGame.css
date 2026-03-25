@@ -1,33 +1,32 @@
 .random-game-card {
-  width: 90%;
-  padding: 2rem;
-  margin: 4rem auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   font-size: 1.5rem;
+  margin: auto;
 }
 
 .random-game-card .submit-button {
   background-color: var(--color2);
   color: white;
-  min-width: 10rem;
+  width: 10rem;
   padding: 1rem 2rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .random-game-card .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 
 .random-game-card .submit-button:active {
   transform: translateY(2px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
 .quote {
@@ -46,6 +45,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
   max-width: 300px;
 }
 
@@ -68,7 +68,6 @@
   flex: 1;
   font-size: 1rem;
   padding: 0.1rem 1rem;
-  margin: 0 auto;
 }
 
 .guess-input:focus {
@@ -92,35 +91,36 @@
   width: 20rem;
   padding: 1rem 2rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
   outline: none;
 }
 
 .ingame-options button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 
 .ingame-options button:active {
   transform: translateY(2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
 .lobby-buttons button {
   background-color: var(--color6);
   color: rgb(0, 0, 0);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   padding: 0.6em 1.2em;
-  min-width: 20rem;
   min-height: 6rem;
   font-weight: 500;
   cursor: pointer;
-  margin-right: 1rem;
+  width: 20rem;
   border: none;
+  margin-left: 1rem;
+  margin-right: 1rem;
   outline: none;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.75rem 1.875rem rgba(0, 0, 0, 0.4);
   font-family: "IM Fell Great Primer SC", serif;
   font-size: clamp(1.5rem, 2vw, 2rem);
   font-weight: 1000;
@@ -128,13 +128,13 @@
 }
 
 .lobby-actions button:focus-visible {
-  outline: 3px solid rgba(108, 92, 231, 0.5);
-  outline-offset: 3px;
+  outline: 0.2rem solid rgba(108, 92, 231, 0.5);
+  outline-offset: 0.2rem;
 }
 
 .lobby-buttons button:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-  transform: translateY(2px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+  transform: translateY(0.2rem);
 }
 
 .lobby-buttons {
@@ -143,6 +143,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 .lobby-button-wrapper {
@@ -152,7 +153,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 20rem;
+  width: auto;
 }
 
 .lobby-buttons-explanations {
@@ -163,13 +164,13 @@
 
   background: #b6f2d160;
   padding: 2rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  margin-top: 3rem;
-  width: 100%;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
   font-family: "times new roman";
 
   opacity: 0;
   font-size: 1.5rem;
+  width: 80%;
 }
 
 .lobby-button-wrapper:hover .lobby-buttons-explanations {
@@ -178,15 +179,14 @@
 }
 
 .lobby-buttons button:active {
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(4px);
+  box-shadow: 0 1.2rem 2rem rgba(0, 0, 0, 0.1);
+  transform: translateY(0.4rem);
 }
 
 .lobby-buttons {
-  margin-top: 15rem;
+  margin-top: 5rem;
   display: flex;
   justify-content: center;
-  gap: 5%;
 }
 
 .end-game-text {
@@ -195,4 +195,48 @@
   font-weight: bold;
   margin: 0.5rem 0;
   margin-top: 10rem;
+}
+
+.game-header {
+  margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .lobby-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .lobby-button-wrapper {
+    width: 100%; /* full width */
+    align-items: center; /* center button horizontally */
+  }
+
+  .lobby-buttons-explanations {
+    position: static;
+    transform: none;
+    opacity: 1;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .guess-input {
+    width: 100%;
+  }
+
+  .random-game-card .submit-button {
+    width: 30%;
+    padding: 0.5rem 0.5rem; /* scale padding for small screens */
+    font-size: 1.2rem;
+  }
+
+  .ingame-options {
+    flex-direction: column;
+  }
 }

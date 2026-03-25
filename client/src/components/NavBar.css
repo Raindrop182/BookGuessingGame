@@ -4,26 +4,29 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
   margin: 0;
   width: 100%;
   font-weight: 700;
   box-sizing: border-box;
-  min-height: 72px;
+  min-height: 2rem;
 }
 
 .NavBar-title {
   color: var(--white);
-  font-size: 20px;
+  font-size: 1.5rem;
 }
 
 .NavBar-links {
-  transform: translateX(-15%);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .NavBar-login button {
@@ -32,20 +35,20 @@
   width: 5rem;
   padding: 1rem 0.5rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.7rem;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   outline: none;
 }
 
 .NavBar-login button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-0.2rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
 }
 
 .NavBar-login button:active {
-  transform: translateY(2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .NavBar-links a {
@@ -54,18 +57,37 @@
   margin-left: 1rem;
   font-weight: 700;
   padding: 0.4rem 0.4rem;
-  font-size: 20px;
+  font-size: 1.2rem;
   min-width: 5rem;
 }
 
 .NavBar-links a:hover {
   background: var(--color6);
   color: var(--gray);
-  border-radius: 999px;
+  border-radius: 100rem;
 }
 
 .NavBar-links a.active {
   background: var(--color6);
   color: var(--gray);
-  border-radius: 999px;
+  border-radius: 100rem;
+}
+
+@media (max-width: 600px) {
+  .NavBar-login button {
+    width: 3rem;
+  }
+
+  .NavBar-title {
+    font-size: 0.8rem;
+  }
+
+  .NavBar-links {
+    gap: 0.2rem; /* Shrink gaps */
+  }
+  .NavBar-links a {
+    min-width: auto; /* Allow links to be smaller */
+    font-size: 0.75rem;
+    margin-left: 0.1rem;
+  }
 }

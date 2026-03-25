@@ -26,14 +26,15 @@ const GamePage = () => {
   if (gameMode === "lobby") {
     return (
       <div>
-        <h1> Game</h1>
+        <div className="game-header">
+          <h1> Guess the Book!</h1>
+        </div>
         <div className="lobby-buttons">
           <div className="lobby-button-wrapper">
             <button onClick={() => setGameMode("random")}>Random</button>
             <div className="lobby-buttons-explanations">
-              Get quotes from a random book and try to guess which one it’s
-              from. Keep getting quotes until you guess correctly or give up.
-              Each game is a new book.
+              Get random quotes and guess which book they're from. Keep going
+              until you guess the book correctly or give up.
             </div>
           </div>
           <div className="lobby-button-wrapper">
@@ -52,9 +53,7 @@ const GamePage = () => {
               Book of the Day
             </button>
             <div className="lobby-buttons-explanations">
-              Guess quotes from the daily featured book. You can get as many
-              quotes as you need until you guess it or give up. Each player can
-              play this once per day.
+              Guess the daily featured book from quotes.
             </div>
           </div>
         </div>

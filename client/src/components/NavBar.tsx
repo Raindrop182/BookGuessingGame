@@ -36,7 +36,7 @@ const NavBar = () => {
   };
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-title">Book Guessing Game</div>
+      <div className="NavBar-title">Guess the Book</div>
       <div className="NavBar-links">
         <NavLink
           to="/"
