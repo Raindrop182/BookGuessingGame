@@ -9,8 +9,8 @@ A web game where users can guess classic books based on randomly pulled quotes, 
   <img src="./profile_screenshot.png" alt="Profile Page" width="45%"/>
 </p>
 <p align="center">
-  <img src="./mobile_ingame_screenshot.png" alt="Mobile Game Page" width="42%"/>
-  <img src="./mobile_profile_screenshot.png" alt="Mobile Profile Page" width="45%"/>
+      <img src="./mobile_ingame_screenshot.png" alt="Mobile Game Page" width="14%"/>
+  <img src="./mobile_profile_screenshot.png" alt="Mobile Profile Page" width="14%"/>
 </p>
 
 ---
