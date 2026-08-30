@@ -1,11 +1,10 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
 import type { Book, GameMode, GameState } from "../../types";
 
 import EndGame from "./EndGame";
 import GuessInput from "./GuessInput";
 import InGameOptions from "./InGameOptions";
-import { useBookOfTheDay } from "../Utils/BookOfTheDay";
 
 import "./RandomBookGame.css";
 
@@ -15,7 +14,6 @@ type Props = {
   setGameState: React.Dispatch<React.SetStateAction<GameState>>;
   gameState: GameState;
   gameMode: GameMode;
-  setRefreshBOD: React.Dispatch<React.SetStateAction<number>>;
 };
 
 type GameContextType = {
@@ -26,12 +24,6 @@ type GameContextType = {
   book: Book;
   setRandomQuote: (book: Book) => void;
   inputRef: React.RefObject<HTMLInputElement | null>;
-  setRefreshBOD: React.Dispatch<React.SetStateAction<number>>;
-};
-
-type Status = {
-  numQuotes: number;
-  date: number;
 };
 
 export const GameContext = createContext<GameContextType | null>(null);
@@ -58,20 +50,12 @@ const RandomBookGame = ({
   gameState,
   setGameState,
   gameMode,
-  setRefreshBOD,
 }: Props) => {
   const [book, setBook] = useState<Book>(getRandomBook(books));
   const [quote, setQuote] = useState<string>(getRandomQuote(book));
-  const inputRef = useRef<HTMLInputElement>(null);
   const [quoteCount, setQuoteCount] = useState(1);
-  const { getStatus } = useBookOfTheDay();
-  const [lastStatus, setLastStatus] = useState<Status | null>(null);
 
-  useEffect(() => {
-    if (gameState === "won" || gameState === "lost") {
-      getStatus().then(setLastStatus);
-    }
-  }, [gameState]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function setRandomQuote(book: Book) {
     setQuoteCount(quoteCount + 1);
@@ -97,13 +81,7 @@ const RandomBookGame = ({
           setGameMode={setGameMode}
           setGameState={setGameState}
           gameMode={gameMode}
-          numQuotesFromGame={
-            gameMode === "bookoftheday" &&
-            lastStatus &&
-            lastStatus.date === new Date().getTime()
-              ? lastStatus.numQuotes
-              : quoteCount
-          }
+          numQuotesFromGame={quoteCount}
           gameState={gameState}
           book={book}
         />
@@ -119,7 +97,6 @@ const RandomBookGame = ({
               book,
               setRandomQuote,
               inputRef,
-              setRefreshBOD,
             }}
           >
             <GuessInput />
