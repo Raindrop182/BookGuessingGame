@@ -23,6 +23,34 @@ const NavBar = () => {
     const data = await r.json();
     console.log("Logged in user:", data.user);
     setUser(data.user);
+
+    // Check if they played Book of the Day while logged out
+    // If so, update their profile with the local Book of the Day stats
+    const BOD_KEY = "bookOfTheDayLastPlayed";
+    const localBOD = localStorage.getItem(BOD_KEY);
+    if (localBOD) {
+      try {
+        const parsedBOD = JSON.parse(localBOD);
+        const today = new Date().toDateString();
+        // If they played today while logged out but NOT while logged in, save it to their profile
+        if (parsedBOD.date === today && data.user.bookofthedayStats?.date !== today) {
+          await fetch(`${API_URL}/api/user`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              bookofthedayStats: parsedBOD,
+            }),
+            credentials: "include",
+          })
+            .then((res) => res.json())
+            .then((updatedUser) => {
+              setUser(updatedUser);
+            });
+        }
+      } catch (err) {
+        console.error("Failed to migrate Book of the Day stats:", err);
+      }
+    }
   };
 
   const handleLogout = async () => {
