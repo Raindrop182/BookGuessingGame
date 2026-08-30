@@ -7,6 +7,9 @@ import { useUpdateUser } from "./UpdateUser";
 
 export const BOD_LAST_PLAYED_KEY = "bookOfTheDayLastPlayed";
 
+/**
+ * Returns the book of the day based on a deterministic seed derived from the current date.
+ */
 export function getBookOfTheDay(books: Book[]): Book {
   const dateSeed = new Date().toDateString();
 
@@ -16,6 +19,9 @@ export function getBookOfTheDay(books: Book[]): Book {
   return books[index];
 }
 
+/**
+ * Retrieves the last book of the day status from localStorage.
+ */
 function getLocalBOD() {
   const str = localStorage.getItem(BOD_LAST_PLAYED_KEY);
   if (!str) return null;
@@ -27,6 +33,9 @@ function getLocalBOD() {
   }
 }
 
+/**
+ Saves the current book of the day stats to local storage
+ */
 function setLocalBOD(status: GameState, numQuotes: number) {
   localStorage.setItem(
     BOD_LAST_PLAYED_KEY,
@@ -41,20 +50,22 @@ export function useBookOfTheDay() {
   const isLoggedIn = !!user;
 
   async function getStatus() {
-    if (isLoggedIn) {
+    const today = new Date().toDateString();
+
+    if (isLoggedIn && user.bookofthedayStats?.date === today) {
       return user.bookofthedayStats;
-    } else {
-      console.log("not logged in status retrieval");
-      return getLocalBOD();
     }
+
+    const localEntry = getLocalBOD();
+    if (localEntry?.date === today) return localEntry;
+
+    return null; // Haven't played today
   }
 
   async function setStatus(status: GameState, numQuotes: number) {
-    if (isLoggedIn) return addBODStat(status, numQuotes);
-    else {
-      console.log("not logged in status set");
-      return setLocalBOD(status, numQuotes);
-    }
+    if (isLoggedIn) addBODStat(status, numQuotes);
+
+    return setLocalBOD(status, numQuotes);
   }
 
   return { getStatus, setStatus };
