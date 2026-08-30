@@ -29,17 +29,15 @@ export const useUpdateUser = () => {
       .then((res) => res.json())
       .then(setUser);
   };
-  const changeAvatarColor = async (color: string) => {
-    await fetch(`${API_URL}/api/user`, {
+  const changeAvatarColor = (color: string) => {
+    setUser((prev) => (prev ? { ...prev, avatarColor: color } : null));
+
+    fetch(`${API_URL}/api/user`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        avatarColor: color,
-      }),
+      body: JSON.stringify({ avatarColor: color }),
       credentials: "include",
-    })
-      .then((res) => res.json())
-      .then(setUser);
+    }).catch(() => console.error("Failed to update avatar color"));
   };
   return { addBookGuess, addBODStat, changeAvatarColor };
 };

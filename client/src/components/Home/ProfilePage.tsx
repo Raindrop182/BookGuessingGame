@@ -18,6 +18,7 @@ const ProfilePage = () => {
     if (!user) {
       const timer = setTimeout(() => {
         // check user again after 3 seconds
+        // if user still doesn't exist, return home
         if (!user) {
           navigate("/", { replace: true });
         }
