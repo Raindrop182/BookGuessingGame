@@ -22,7 +22,6 @@ const GuessInput = () => {
     book,
     setRandomQuote,
     inputRef,
-    setRefreshBOD,
   } = useGameContext();
   const [feedback, setFeedback] = useState("");
   const [guess, setGuess] = useState<string>("");
@@ -51,7 +50,7 @@ const GuessInput = () => {
       setGameState("won");
       setFeedback("");
       if (gameMode == "bookoftheday") {
-        setStatus("won", quoteCount).then(() => setRefreshBOD((r) => r + 1));
+        setStatus("won", quoteCount);
       } else if (gameMode == "random") {
         addBookGuess(book.id, quoteCount);
       }

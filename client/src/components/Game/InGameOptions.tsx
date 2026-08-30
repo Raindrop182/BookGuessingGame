@@ -11,7 +11,6 @@ const InGameOptions = () => {
     book,
     setRandomQuote,
     inputRef,
-    setRefreshBOD,
   } = useGameContext();
   const { setStatus } = useBookOfTheDay();
 
@@ -29,9 +28,7 @@ const InGameOptions = () => {
         onClick={() =>
           handleButtonClick(() => {
             if (gameMode === "bookoftheday") {
-              setStatus("lost", quoteCount).then(() =>
-                setRefreshBOD((r) => r + 1),
-              );
+              setStatus("lost", quoteCount);
             }
             setGameState("lost");
           })

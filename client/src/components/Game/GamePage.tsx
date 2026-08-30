@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import type { Book, GameMode, GameState } from "../../types";
 
 import RandomBookGame from "./RandomBookGame";
 import { useBookOfTheDay, getBookOfTheDay } from "../Utils/BookOfTheDay";
-import { useUser } from "../Utils/UserContext";
 
 import "./RandomBookGame.css";
 
@@ -13,17 +12,9 @@ const GamePage = () => {
   const { books } = useOutletContext<{ books: Book[] }>();
   const [gameMode, setGameMode] = useState<GameMode>("lobby"); //lobby, random, bookoftheday
   const [gameState, setGameState] = useState<GameState>("on"); //on, won, lost
-  const { getStatus } = useBookOfTheDay();
-  const [playedBOD, setPlayedBOD] = useState(false);
-  const { user } = useUser();
-  const [refreshBOD, setRefreshBOD] = useState(0);
 
-  useEffect(() => {
-    getStatus().then((status) => {
-      console.log("status");
-      setPlayedBOD(status?.date === new Date().toDateString());
-    });
-  }, [user, refreshBOD]);
+  const { getStatus } = useBookOfTheDay(); // Hook to get the Book of the Day status
+
   if (books.length == 0) return <div>Loading books...</div>;
 
   if (gameMode === "lobby") {
@@ -43,9 +34,8 @@ const GamePage = () => {
           <div className="lobby-button-wrapper">
             <button
               onClick={async () => {
-                if (playedBOD) {
-                  console.log(playedBOD);
-                  const lastStatus = await getStatus();
+                const lastStatus = await getStatus();
+                if (lastStatus?.date === new Date().toDateString()) {
                   setGameState(lastStatus?.status || "won");
                 } else {
                   setGameState("on");
@@ -73,7 +63,6 @@ const GamePage = () => {
           gameState={gameState}
           setGameState={setGameState}
           gameMode={gameMode}
-          setRefreshBOD={setRefreshBOD}
         />
       )}
       {gameMode === "bookoftheday" && (
@@ -83,7 +72,6 @@ const GamePage = () => {
           gameState={gameState}
           setGameState={setGameState}
           gameMode={gameMode}
-          setRefreshBOD={setRefreshBOD}
         />
       )}
     </div>
