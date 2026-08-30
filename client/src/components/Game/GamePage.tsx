@@ -1,10 +1,13 @@
-import type { Book, GameMode, GameState } from "../../types";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+
+import type { Book, GameMode, GameState } from "../../types";
+
 import RandomBookGame from "./RandomBookGame";
-import "./RandomBookGame.css";
-import { useState, useEffect } from "react";
 import { useBookOfTheDay, getBookOfTheDay } from "../Utils/BookOfTheDay";
 import { useUser } from "../Utils/UserContext";
+
+import "./RandomBookGame.css";
 
 const GamePage = () => {
   const { books } = useOutletContext<{ books: Book[] }>();

@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
-import NavBar from "./components/NavBar.tsx";
-import type { Book } from "./types";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+
+import type { Book } from "./types";
+
+import NavBar from "./components/NavBar.tsx";
 import { API_URL } from "./components/Utils/api";
 
 const App = () => {

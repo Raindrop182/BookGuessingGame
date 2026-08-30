@@ -1,6 +1,7 @@
-import "./RandomBookGame.css";
-import { useBookOfTheDay } from "../Utils/BookOfTheDay";
 import { useGameContext } from "./RandomBookGame";
+import { useBookOfTheDay } from "../Utils/BookOfTheDay";
+
+import "./RandomBookGame.css";
 
 const InGameOptions = () => {
   const {

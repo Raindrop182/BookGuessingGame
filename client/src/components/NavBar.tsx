@@ -1,8 +1,10 @@
-import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+
 import { useUser } from "./Utils/UserContext";
 import { API_URL } from "./Utils/api";
+
+import "./NavBar.css";
 
 const NavBar = () => {
   const { user, setUser } = useUser();

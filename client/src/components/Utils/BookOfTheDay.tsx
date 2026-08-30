@@ -1,7 +1,9 @@
 import seedrandom from "seedrandom";
+
 import type { Book, GameState } from "../../types";
+
 import { useUser } from "./UserContext";
-import { useUpdateUser } from "../Utils/UpdateUser";
+import { useUpdateUser } from "./UpdateUser";
 
 export const BOD_LAST_PLAYED_KEY = "bookOfTheDayLastPlayed";
 

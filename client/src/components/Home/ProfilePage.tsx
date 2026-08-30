@@ -1,10 +1,13 @@
+import { useEffect } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
+
 import type { Book } from "../../types";
-import { useOutletContext, useNavigate } from "react-router-dom";
+
 import { useUser } from "../Utils/UserContext";
-import "./ProfilePage.css";
 import Avatar from "./Avatar.tsx";
 import BookshelfBook from "./BookshelfBook.tsx";
-import { useEffect } from "react";
+
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const { books } = useOutletContext<{ books: Book[] }>();

@@ -1,20 +1,22 @@
-import "./style.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
+import "@fontsource/im-fell-great-primer-sc";
+
 import App from "./App";
-import MainPage from "./components/Home/MainPage.tsx";
 import GamePage from "./components/Game/GamePage.tsx";
+import MainPage from "./components/Home/MainPage.tsx";
 import ProfilePage from "./components/Home/ProfilePage.tsx";
 import NotFound from "./components/NotFound.tsx";
-import "@fontsource/im-fell-great-primer-sc";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserProvider } from "./components/Utils/UserContext.tsx";
+
+import "./style.css";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const router = createBrowserRouter(

@@ -1,10 +1,13 @@
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+
 import type { Book, GameMode, GameState } from "../../types";
-import { useState, useRef, createContext, useContext, useEffect } from "react";
-import "./RandomBookGame.css";
+
 import EndGame from "./EndGame";
 import GuessInput from "./GuessInput";
 import InGameOptions from "./InGameOptions";
 import { useBookOfTheDay } from "../Utils/BookOfTheDay";
+
+import "./RandomBookGame.css";
 
 type Props = {
   books: Book[];

@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
+
 import type { Book, GameMode, GameState } from "../../types";
+
 import { useBookOfTheDay } from "../Utils/BookOfTheDay";
-import { useState, useEffect } from "react";
 
 type Props = {
   gameMode: GameMode;

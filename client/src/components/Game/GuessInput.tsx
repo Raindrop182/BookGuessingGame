@@ -1,8 +1,10 @@
-import { useState, useRef, useEffect } from "react";
-import "./RandomBookGame.css";
-import { useBookOfTheDay } from "../Utils/BookOfTheDay";
+import { useEffect, useRef, useState } from "react";
+
 import { useGameContext } from "./RandomBookGame";
+import { useBookOfTheDay } from "../Utils/BookOfTheDay";
 import { useUpdateUser } from "../Utils/UpdateUser";
+
+import "./RandomBookGame.css";
 
 function normalize(s: string) {
   return s
