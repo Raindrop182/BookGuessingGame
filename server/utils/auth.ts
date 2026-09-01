@@ -19,24 +19,22 @@ router.post("/login", async (req, res) => {
     if (!payload) return res.status(401).send("Invalid token");
 
     // Find or create user
-    let user = await User.findOne({ googleid: payload.sub });
-    console.log("eeee");
+    const pool = getPool();
+    const result = await pool.query("SELECT * FROM users WHERE googleid = $1",
+      [payload.sub]
+    );
+    const user=result.rows[0];
     if (!user) {
-      console.log("Trying to create new user");
-      user = await User.create({
-        name: payload.name,
-        googleid: payload.sub,
-        avatarColor: "#FFFFFF",
-        booksGuessed: [],
-        bookofthedayStats: { date: "", numQuotes: 0, status: "lost" },
-      });
+      console.log("Creating new user");
+      const insertResult = await pool.query("INSERT INTO users (name, googleid, avatar_color) VALUES ($1, $2, $3) RETURNING *", [payload.name, payload.sub, "#FFFFFF"]);
     }
 
     // Save user id in session
-    req.session.userId = user._id.toString();
-    res.json({ user });
+    req.session.userId = user.id;
+
+    const fullUser = await fetchFullUser(pool, user.id);
+    res.json({ user: fullUser });
   } catch (error) {
-    console.log("gggg");
     console.error("!!! DETAILED LOGIN ERROR !!!");
     console.error(error);
     res.status(500).json({ error: "Server error" });
