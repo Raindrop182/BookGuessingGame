@@ -13,31 +13,29 @@ import {fetchFullUser} from "./userHelper.ts"
 dotenv.config();
 
 const app = express();
-app.enable("trust proxy");
+app.enable("trust proxy"); //necessary if hosting through a secondary platform, like Render
+
 const PORT = process.env.PORT || 5000;
+
 app.use(
   cors({
-    origin:
+    origin: //restricts API access to only the front-end domain
       process.env.NODE_ENV === "production"
         ? "https://bookguessinggame.onrender.com"
         : "http://localhost:5173",
-    credentials: true,
+    credentials: true, //allows cookies
   }),
 );
 
 const __dirname = path.resolve();
 
 connectDB();
-await initDB();
-const pool = getPool();
-
-console.log("NODE_ENV:", process.env.NODE_ENV);
-
-const PgSession = connectPgSimple(session);
+const pool = getPool(); //set of active database connectinos
 
 app.use(express.json()); // parse the body as json and put it in req.body
 
 // set up session (to keep track of who is currently logged in)
+const PgSession = connectPgSimple(session);
 app.use(
   session({
     secret: process.env.SESSION_SECRET!,
@@ -117,6 +115,7 @@ app.put("/api/user", async (req, res) => {
         [req.session.userId, updates.bookofthedayStats.date, updates.bookofthedayStats.numQuotes, updates.bookofthedayStats.status]
       );
     }
+
     const updatedUser = await fetchFullUser(pool, req.session.userId);
     res.json(updatedUser);
   } catch (err) {
@@ -127,6 +126,9 @@ app.put("/api/user", async (req, res) => {
 
 app.use(express.static(path.join(__dirname, "client/dist")));
 
+//for single page application routing
+// if the request path does not start with /api, serve index.html
+// once loaded in browser, the front-end router will take over and handle the routing
 app.use((req, res, next) => {
   if (req.path.startsWith("/api")) return next();
   res.sendFile(path.join(__dirname, "client/dist/index.html"));

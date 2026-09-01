@@ -3,13 +3,13 @@ import * as fs from "fs";
 
 import dotenv from "dotenv";
 
-import booksData from "../data/books.json" with { type: "json" };
-
 dotenv.config();
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: false, //don't verify if SSL certificate is signed by a trusted Certificate Authority
+    //necessary for some hosting platforms like Render
   },
 });
 
