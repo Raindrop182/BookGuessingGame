@@ -1,14 +1,14 @@
 import express from "express";
 import session from "express-session";
-import { Book } from "./schema.ts";
-import mongoose from "mongoose";
-import { connectDB, seedDB } from "./utils/db.ts";
-import dotenv from "dotenv";
-import authRoutes from "./utils/auth.ts";
+import connectPgSimple from "connect-pg-simple";
 import cors from "cors";
-import { User } from "./schema.ts";
+import dotenv from "dotenv";
 import path from "path";
-import MongoStore from "connect-mongo";
+
+import authRoutes from "./utils/auth.ts";
+import { connectDB, initDB } from "./utils/db.ts";
+import { getPool } from "./utils/db.ts";
+import {fetchFullUser} from "./userHelper.ts"
 
 dotenv.config();
 
@@ -28,17 +28,24 @@ app.use(
 const __dirname = path.resolve();
 
 connectDB();
-seedDB();
+await initDB();
+const pool = getPool();
+
 console.log("NODE_ENV:", process.env.NODE_ENV);
 
+const PgSession = connectPgSimple(session);
+
 app.use(express.json()); // parse the body as json and put it in req.body
+
+// set up session (to keep track of who is currently logged in)
 app.use(
   session({
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
+    store: new PgSession({
+      pool: pool,
+      tableName: "session",
     }),
     cookie: {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
