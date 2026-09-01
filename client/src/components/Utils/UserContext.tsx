@@ -2,9 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { API_URL } from "./api";
 
 type User = {
-  _id: string;
+  id: string;
   name: string;
-  googleid: string;
+  googleId: string;
   avatarColor: string;
   booksGuessed: {
     bookId: number;
