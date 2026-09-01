@@ -48,7 +48,7 @@ const ProfilePage = () => {
         </h2>
         <div className="guessed-books">
           {user.booksGuessed.map((guess) => (
-            <BookshelfBook guess={guess} />
+            <BookshelfBook key={guess.bookId} guess={guess} />
           ))}
         </div>
       </div>
