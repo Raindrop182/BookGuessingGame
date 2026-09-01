@@ -1,6 +1,6 @@
 # BookGuessingGame
 
-A web game where users can guess classic books based on randomly pulled quotes, track their scores, and explore book stats. Built with modern web technologies, this project showcases full-stack development skills, state management, and API integration.
+A full-stack, responsive web game where users test their literary knowledge by identifying classic books from randomly pulled quotes. Built with a modern TypeScript stack, it showcases full-stack development skills, state management, and API integration.
 
 ## [Play the deployed game](https://bookguessinggame.onrender.com/)
 
@@ -14,25 +14,22 @@ A web game where users can guess classic books based on randomly pulled quotes, 
 </p>
 
 ---
+## Key Features 
+
+- **Daily & Freeplay Guessing Modes:** Guess books from randomly selected quotes in a daily global challenge or unlimited, casual mode
+- **Google OAuth Authentication:** One-tap sign-in integrated with server-side Express sessions.
+- **Relational Data Persistence:** Structured PostgreSQL schema for books, user stats, and single-attempt daily challenges.
+- **Responsive Architecture:** Customized layout and interactive feedback optimized for both desktop and mobile screens.
+
+---
 
 ## Technologies Used
 
 - **Frontend:** React, TypeScript, CSS3
 - **Backend:** Node.js, Express
-- **Database:** MongoDB Atlas
+- **Database:** PostgreSQL
 - **Routing & State Management:** React Router, React Context API / custom hooks
 - **Deployment:** Render (frontend & backend)
-
----
-
-## Features
-
-- **Interactive Book Guessing:** Users can attempt to guess books based on random excerpts.
-- **User Accounts:** Register and log in to track guesses, high scores, and personalized stats.
-- **Persistent Storage:** MongoDB backend for user data and game history.
-- **Smooth UX:** Hover animations and interactive feedback.
-- **Responsive UI:** Updated interface works seamlessly on both desktop and mobile devices.
-
 ---
 
 ## Planned Enhancements
