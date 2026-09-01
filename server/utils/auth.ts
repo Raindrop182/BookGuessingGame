@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { OAuth2Client } from "google-auth-library";
-import { User } from "../schema.ts";
+import { getPool } from "./db.ts";
+import {fetchFullUser} from "../userHelper.ts"
 
 const router = Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post("/login", async (req, res) => {
   try {
-    console.log("ffff");
     const { credential } = req.body;
 
     const ticket = await client.verifyIdToken({

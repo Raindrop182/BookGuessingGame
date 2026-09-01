@@ -60,20 +60,23 @@ app.use("/api/auth", authRoutes);
 
 app.get("/api/books", async (req, res) => {
   try {
-    const books = await Book.find();
-    res.json(books);
+    const books = await pool.query("SELECT * FROM books")
+    res.json(books.rows);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch books" });
   }
 });
 
 app.get("/api/user", async (req, res) => {
-  if (!req.session.userId) {
-    return res.status(401).json(null);
-  }
+  if (!req.session.userId) return res.status(401).json(null);
 
-  const user = await User.findById(req.session.userId);
-  res.json(user);
+  try {
+    const user = await fetchFullUser(pool, req.session.userId);
+    if (!user) return res.status(404).json(null);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
 });
 
 app.put("/api/user", async (req, res) => {
@@ -85,52 +88,41 @@ app.put("/api/user", async (req, res) => {
   const updates = req.body;
 
   try {
-    const user = await User.findById(req.session.userId);
-    if (!user) return res.status(404).json({ error: "User not found" });
-
     if (updates.booksGuessed) {
-      updates.booksGuessed.forEach(
-        (guess: { bookId: number; numQuotes: number }) => {
-          const index = user.booksGuessed.findIndex(
-            (b) => b.bookId === guess.bookId,
-          );
-          if (index >= 0) {
-            user.booksGuessed[index].bestNumQuotes = Math.min(
-              user.booksGuessed[index].bestNumQuotes,
-              guess.numQuotes,
-            );
-            user.booksGuessed[index].worstNumQuotes = Math.max(
-              user.booksGuessed[index].worstNumQuotes,
-              guess.numQuotes,
-            );
-          } else {
-            user.booksGuessed.push({
-              bookId: guess.bookId,
-              bestNumQuotes: guess.numQuotes,
-              worstNumQuotes: guess.numQuotes,
-            });
-          }
-        },
-      );
-      delete updates.booksGuessed; // remove from generic updates
+      for(const guess of updates.booksGuessed){
+        const { bookId, numQuotes } = guess;
+        await pool.query(`INSERT INTO book_guesses (user_id, book_id, best_num_quotes, worst_num_quotes)
+          VALUES ($1, $2, $3, $3)
+          ON CONFLICT (user_id, book_id)
+          DO UPDATE SET
+          best_num_quotes=LEAST(book_guesses.best_num_quotes, $3), worst_num_quotes=GREATEST(book_guesses.worst_num_quotes, $3)`,
+          [req.session.userId, guess.bookId, guess.numQuotes]);
+      }
     }
 
-    // Update other fields generically
-    Object.keys(updates).forEach((key) => {
-      if (
-        key === "name" ||
-        key === "bookofthedayStats" ||
-        key === "avatarColor"
-      ) {
-        user[key] = updates[key];
-      }
-    });
+    if (updates.avatarColor){
+      await pool.query("UPDATE users SET avatar_color=$1 WHERE id=$2", [updates.avatarColor, req.session.userId])
+    }
 
-    await user.save();
-    res.json(user);
+    if(updates.name){
+        await pool.query("UPDATE users SET name=$1 WHERE id=$2", [updates.name, req.session.userId])
+    }
+
+    if(updates.bookofthedayStats){
+      await pool.query(
+        `INSERT INTO book_of_the_day_stats (user_id, date, num_quotes, status)
+        VALUES ($1, $2, $3, $4)
+        ON CONFLICT (user_id)
+        DO UPDATE SET date = $2, num_quotes = $3, status = $4`,
+        [req.session.userId, updates.bookofthedayStats.date, updates.bookofthedayStats.numQuotes, updates.bookofthedayStats.status]
+      );
+    }
+    const updatedUser = await fetchFullUser(pool, req.session.userId);
+    res.json(updatedUser);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Failed to update user" });
-  }
+}
 });
 
 app.use(express.static(path.join(__dirname, "client/dist")));
