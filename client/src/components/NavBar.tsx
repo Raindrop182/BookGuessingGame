@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
 import { useUser } from "./Utils/UserContext";
@@ -12,14 +12,12 @@ const NavBar = () => {
     if (!res.credential) {
       return;
     }
-    console.log("aaaaa");
     const r = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ credential: res.credential }),
       credentials: "include",
     });
-    console.log("bbbbb");
     const data = await r.json();
     console.log("Logged in user:", data.user);
     setUser(data.user);
@@ -53,6 +51,8 @@ const NavBar = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     await fetch(`${API_URL}/api/auth/logout`, {
       method: "POST",
@@ -60,9 +60,10 @@ const NavBar = () => {
     });
     console.log("Successfully logged out!");
     setUser(null);
+    navigate("/", { replace: true });
   };
   const handleError = () => {
-    console.log("Login failedddddd");
+    console.log("Login failed");
   };
   return (
     <nav className="NavBar-container">
